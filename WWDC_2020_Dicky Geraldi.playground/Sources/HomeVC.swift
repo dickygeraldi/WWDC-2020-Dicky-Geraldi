@@ -45,7 +45,7 @@ public class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionV
         
         view.addSubview(mainBackground)
         
-        collectedData.frame = CGRect(x: 120, y: 120, width: 630, height: 230)
+        collectedData.frame = CGRect(x: 120, y: 120, width: 580, height: 230)
         collectedData.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectedData)
         
@@ -124,7 +124,14 @@ public class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionV
         return cell
     }
     
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let viewControllers = ContentDetails()
+        viewControllers.dataContent = detailsContent[indexPath.row]
+        viewControllers.colorMasking = dataContent[indexPath.row].colorMask
+        navigationController?.pushViewController(viewControllers, animated: true)
+    }
+    
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize.init(width: 400, height: 200)
     }}
-
