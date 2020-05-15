@@ -30,7 +30,9 @@ class ScanQRVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             if mechineReadableCode.type == AVMetadataObject.ObjectType.qr {
                 avCaptureSession.stopRunning()
                 dataQr = mechineReadableCode.stringValue!
-                performSegue(withIdentifier: "openLink", sender: self)
+                let viewControllers = QRData()
+                viewControllers.data = dataQr
+                navigationController?.pushViewController(viewControllers, animated: true)
             }
         }
     }

@@ -1,6 +1,6 @@
 import UIKit
 
-public class HomeVC: UIViewController {
+public class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     var mainBackground: UIImageView!
     var buttonScan: UIButton!
@@ -9,11 +9,28 @@ public class HomeVC: UIViewController {
     var collectedData: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
+        viewLayout.scrollDirection = .horizontal
         return collectionView
     }()
     
+    var dataContent: [ContentTable] = []
+    var detailsContent: [Content] = []
     var musicServices = MusicPlayer()
+    
+    
+    // Function to get all data content
+    func GetAllContent() -> ([ContentTable], [Content]) {
+        let defaults = UserDefaults.standard
+        let data = defaults.object(forKey: "QRData") as? [String] ?? [String]()
+        
+        var tempContent: [ContentTable]
+        var tempContentDetails: [Content]
+        
+        (tempContent, tempContentDetails) = GetContent(IdContent: data)
+        
+        return (tempContent, tempContentDetails)
+    }
     
     // Create an UIView
     func SetUpView() {
@@ -28,8 +45,11 @@ public class HomeVC: UIViewController {
         
         view.addSubview(mainBackground)
         
+        collectedData.frame = CGRect(x: 120, y: 120, width: 630, height: 230)
         collectedData.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectedData)
+        
+        (dataContent, detailsContent) = GetAllContent()
     }
     
     // Create an Stop Button
@@ -80,5 +100,31 @@ public class HomeVC: UIViewController {
         SetUpView()
         SetUpButtonScan()
         SetupButtonMusic(musicStatus: true)
+        
+        collectedData.register(DataCollection.self, forCellWithReuseIdentifier: "QRData")
+        collectedData.dataSource = self
+        collectedData.delegate = self
     }
-}
+    
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataContent.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QRData", for: indexPath) as! DataCollection
+        
+        let content = dataContent[indexPath.row]
+        
+        cell.dataContent = content
+        
+        return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize.init(width: 400, height: 200)
+    }}
+
