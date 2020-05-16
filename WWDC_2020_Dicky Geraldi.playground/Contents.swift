@@ -59,7 +59,8 @@ class ViewControllers: UIViewController {
         navigationController?.pushViewController(viewControllers, animated: true)
     }
     
-    override func loadView() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
         SetUpView()
         SetUpButton()
         startBackgroundMusic(sourceFile: "Sappheiros - Lights", typeFile: ".mp3")
@@ -69,6 +70,7 @@ class ViewControllers: UIViewController {
 }
 
 let viewControllers = ViewControllers()
+let navigationController = UINavigationController(rootViewController: viewControllers)
 viewControllers.preferredContentSize = CGSize(width: 660, height: 480)
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = UINavigationController(rootViewController: viewControllers)
+PlaygroundPage.current.liveView = navigationController

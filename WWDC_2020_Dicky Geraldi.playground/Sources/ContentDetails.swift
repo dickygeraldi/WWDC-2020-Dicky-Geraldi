@@ -158,7 +158,7 @@ public class ContentDetails: UIViewController {
     @objc func GoToHome(_ sender: UIButton) {
         let viewControllers = HomeVC()
         viewControllers.ReloadData()
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToViewController(viewControllers, animated: true)
     }
     
     @objc func GoHome(_ sender: UIButton) {
