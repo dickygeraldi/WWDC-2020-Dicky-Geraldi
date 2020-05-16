@@ -92,8 +92,37 @@ func GetContent(IdContent: [String]) -> ([ContentTable], [Content]) {
         }
     }
     
-    tempContent = contentAll
-    tempContentTable = contentTable
-    
     return (tempContentTable, tempContent)
+}
+
+func GetContentById(idData: String) -> (Content, UIColor) {
+    
+    var tempContent: [Content] = []
+    var tempContentTable: [ContentTable] = []
+    
+    (tempContentTable, tempContent) = InitContent()
+    
+    var index: Int = 0
+    
+    for i in 0..<tempContentTable.count {
+        if tempContentTable[i].idData == idData {
+            index = i
+        }
+    }
+    
+    return (tempContent[index], tempContentTable[index].colorMask)
+}
+
+func GetUserDefault() -> [String] {
+    let defaults = UserDefaults.standard
+    let data = defaults.object(forKey: "QRData") as? [String] ?? [String]()
+    
+    return data
+}
+
+func SaveUserDefault(dataQr: String) {
+    let defaults = UserDefaults.standard
+    var data = GetUserDefault()
+    data.append(dataQr)
+    defaults.set(data, forKey: "QRData")
 }

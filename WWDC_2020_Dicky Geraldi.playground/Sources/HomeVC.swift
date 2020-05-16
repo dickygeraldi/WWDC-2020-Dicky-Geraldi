@@ -21,8 +21,7 @@ public class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionV
     
     // Function to get all data content
     func GetAllContent() -> ([ContentTable], [Content]) {
-        let defaults = UserDefaults.standard
-        let data = defaults.object(forKey: "QRData") as? [String] ?? [String]()
+        let data = GetUserDefault()
         
         var tempContent: [ContentTable]
         var tempContentDetails: [Content]
@@ -110,6 +109,11 @@ public class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionV
         return 1
     }
     
+    func ReloadData() {
+        (dataContent, detailsContent) = GetAllContent()
+        collectedData.reloadData()
+    }
+    
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataContent.count
     }
@@ -129,6 +133,7 @@ public class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionV
         let viewControllers = ContentDetails()
         viewControllers.dataContent = detailsContent[indexPath.row]
         viewControllers.colorMasking = dataContent[indexPath.row].colorMask
+        viewControllers.flagging = true
         navigationController?.pushViewController(viewControllers, animated: true)
     }
     
