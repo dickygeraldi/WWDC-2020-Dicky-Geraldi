@@ -86,11 +86,7 @@ public class ContentDetails: UIViewController {
         mainBackground.image = image
         mainBackground.contentMode = .scaleToFill
         
-        if flagging == true {
-            goBack.addTarget(self, action: #selector(GoHome(_:)), for: .touchUpInside)
-        } else {
-            goBack.addTarget(self, action: #selector(GoToHome(_:)), for: .touchUpInside)
-        }
+        goBack.addTarget(self, action: #selector(GoHome(_:)), for: .touchUpInside)
         
         content.text = dataContent.content
         imageContent.image = dataContent.imageContent
@@ -150,15 +146,9 @@ public class ContentDetails: UIViewController {
                 view.addSubview(content)
                 view.addSubview(imageContent)
                 view.addSubview(viewContent)
-                view.addSubview(scanAgain)
+                view.addSubview(goBack)
             }
         }
-    }
-    
-    @objc func GoToHome(_ sender: UIButton) {
-        let viewControllers = HomeVC()
-        viewControllers.ReloadData()
-        navigationController?.popToViewController(viewControllers, animated: true)
     }
     
     @objc func GoHome(_ sender: UIButton) {
