@@ -156,8 +156,6 @@ public class ContentDetails: UIViewController {
     }
     
     public override func viewDidLoad() {
-        
         SetUpView()
     }
-    
 }
