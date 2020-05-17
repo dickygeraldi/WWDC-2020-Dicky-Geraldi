@@ -81,8 +81,8 @@ func GetContent(IdContent: [String]) -> ([ContentTable], [Content]) {
     }
     
     if indexed.count == 0 {
-        let content = Content.init(id: "", title: "Still no content here, let's go and scan QR first", content: "", imageContent: UIImage(named: "Photo_None_Data")!, nextClue: "")
-        let contentTable = ContentTable.init(idData: "", title: "Still no content here, let's go and scan QR first", colorMask: #colorLiteral(red: 0.937254902, green: 0.5803921569, blue: 0.9647058824, alpha: 1), imageContent: UIImage(named: "Photo_None_Data")!)
+        let content = Content.init(id: "", title: "Still no content here, let's go and scan QR first", content: "", imageContent: UIImage(named: "Question")!, nextClue: "")
+        let contentTable = ContentTable.init(idData: "", title: "Still no content here, let's go and scan QR first", colorMask: #colorLiteral(red: 0.937254902, green: 0.5803921569, blue: 0.9647058824, alpha: 1), imageContent: UIImage(named: "Question")!)
         tempContent = [content]
         tempContentTable = [contentTable]
     } else {

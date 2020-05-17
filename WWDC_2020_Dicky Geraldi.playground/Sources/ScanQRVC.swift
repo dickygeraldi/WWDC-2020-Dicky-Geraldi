@@ -36,7 +36,7 @@ class ScanQRVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
         view.addSubview(mainBackground)
 
-        videoPreview = UIView(frame: CGRect(x: 100, y: 100, width: 400, height: 270))
+        videoPreview = UIView(frame: CGRect(x: 100, y: 100, width: 520, height: 270))
         videoPreview.backgroundColor = .black
         view.addSubview(videoPreview)
         view.addSubview(goBack)
